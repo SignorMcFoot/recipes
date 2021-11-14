@@ -20,7 +20,7 @@ public class Ingredient {
     @Column(name = "ingredient_id")
     private final UUID id;
 
-    public Ingredient(String name, int quantity, String measurement, UUID id) {
+    public Ingredient(String name, int quantity, UUID id) {
         this.name = name;
         this.quantity = quantity;
         this.id = id;
