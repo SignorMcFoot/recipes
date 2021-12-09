@@ -1,15 +1,15 @@
-package models;
+package com.recipes.recipes.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-@Entity
-@Table(name="ingredients")
+@Entity(name = "ingredient")
+@Table(name="ingredients", schema = "public")
 public class Ingredient {
 
 
-    @ManyToMany(mappedBy = "recipes")
+    @ManyToMany(mappedBy = "ingredients")
     private Set<Recipe> recipes = new HashSet<>();
     @Column(name = "name")
     private final String name;

@@ -1,4 +1,4 @@
-package API;
+package com.recipes.recipes.API;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 

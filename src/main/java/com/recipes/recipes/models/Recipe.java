@@ -1,24 +1,15 @@
-package models;
+package com.recipes.recipes.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "recipes")
 public class Recipe {
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "recipe_ingredients",
-            joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "ingredient_id")}
-    )
-    private final Set<Ingredient> ingredients = new HashSet<>();
 
     @Column(name = "name")
     private final String name;
@@ -30,19 +21,10 @@ public class Recipe {
     @Column(name = "time")
     private final int time;
 
-    @ManyToMany
-    @JoinTable(name = "recipes_recipes",
-            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipes_id"))
-    private List<Ingredient> recipes;
-
-    public List<Ingredient> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<Ingredient> recipes) {
-        this.recipes = recipes;
-    }
-
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "recipe_ingredients",
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "ingredients_id"))
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     public Recipe(
             @JsonProperty("name") String name,
@@ -51,13 +33,16 @@ public class Recipe {
             @JsonProperty("time") int time) {
         this.name = name;
         this.id = id;
-
         this.description = description;
         this.time = time;
     }
 
     public Set<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getName() {
